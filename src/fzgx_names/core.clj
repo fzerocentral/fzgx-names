@@ -214,9 +214,12 @@
    [name "Dread Ha. " "Crazy Bu. " "Punisher" "Final Revolution"]
    [name "Megalo Cr." "Combat Ca." "Thunder." "Hard Banger"]))
 
-(pldb/with-db facts
+(defn search-body
+  [part]
+  (pldb/with-db facts
   (doall
    (run* [q]
-        (fresh [body cockpit booster ship-name]
-               (name body cockpit booster ship-name)
-               (== q ["Megalo Cr." cockpit booster ship-name])))))
+        (fresh [body-part cockpit-part booster-part ship-name]
+               (== body-part part)
+               (name body-part cockpit-part booster-part ship-name)
+               (== q [body-part cockpit-part booster-part ship-name]))))))
