@@ -223,3 +223,35 @@
                (== body-part part)
                (name body-part cockpit-part booster-part ship-name)
                (== q [body-part cockpit-part booster-part ship-name]))))))
+
+(defn search-cockpit
+    [part]
+  (pldb/with-db facts
+  (doall
+   (run* [q]
+        (fresh [body-part cockpit-part booster-part ship-name]
+               (== cockpit-part part)
+               (name body-part cockpit-part booster-part ship-name)
+               (== q [body-part cockpit-part booster-part ship-name]))))))
+
+(defn search-booster
+    [part]
+  (pldb/with-db facts
+  (doall
+   (run* [q]
+        (fresh [body-part cockpit-part booster-part ship-name]
+               (== booster-part part)
+               (name body-part cockpit-part booster-part ship-name)
+               (== q [body-part cockpit-part booster-part ship-name]))))))
+
+(defn name-from-parts
+    [find-body find-cockpit find-booster]
+  (pldb/with-db facts
+  (doall
+   (run* [q]
+        (fresh [body-part cockpit-part booster-part ship-name]
+               (== body-part find-body)
+               (== cockpit-part find-cockpit)
+               (== booster-part find-booster)
+               (name body-part cockpit-part booster-part ship-name)
+               (== q ship-name))))))
